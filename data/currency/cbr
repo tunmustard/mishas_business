@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+mkdir -p cache/cbr
+cd cache/cbr
+for file in daily_utf8.xml daily.xml daily_eng.xml daily_eng_utf8.xml daily_json.js
+do wget --timestamping --no-verbose https://www.cbr-xml-daily.ru/$file
+done 2>&1 | xargs -I{} logger --tag $0 --id=$$ "{}"
+
